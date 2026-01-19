@@ -217,4 +217,10 @@ See `.specify/memory/constitution.md` for code quality, testing, performance, se
 5. **Observability**: Logging and tracing required for all business logic.
 
 ## Recent Changes
-- 003-update-task: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+- 006-fix-auth-context-errors: Added TypeScript 5.x, React 19.2.3, Next.js 16.1.1 + React, Next.js, @types/node, @types/react, @types/react-dom
+- 005-fix-auth-error: Added TypeScript/JavaScript with React 18, Next.js 13+ App Router + React Context API, Next.js Navigation, authentication utilities
+- 005-fix-auth-error: Added TypeScript/JavaScript with React 18, Next.js 13+ App Router + React Context API, Next.js Navigation, authentication utilities
+
+## Active Technologies
+- TypeScript 5.x, React 19.2.3, Next.js 16.1.1 + React, Next.js, @types/node, @types/react, @types/react-dom (006-fix-auth-context-errors)
+- N/A (this is a type fixing task) (006-fix-auth-context-errors)

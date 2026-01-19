@@ -1,0 +1,140 @@
+# API Contract: Authentication Endpoints
+
+## Overview
+This document specifies the API contracts for authentication endpoints that the Next.js frontend will interact with.
+
+## Base URL
+```
+http://localhost:8000/api/v1  # Example - actual URL from environment
+```
+
+## Authentication Endpoints
+
+### POST /login
+Authenticate user with email and password.
+
+#### Request
+```json
+{
+  "email": "user@example.com",
+  "password": "securePassword123!"
+}
+```
+
+#### Response (Success - 200 OK)
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "bearer",
+  "user": {
+    "id": "user_12345",
+    "email": "user@example.com",
+    "name": "John Doe"
+  }
+}
+```
+
+#### Response (Error - 401 Unauthorized)
+```json
+{
+  "detail": "Invalid credentials"
+}
+```
+
+#### Response (Error - 422 Unprocessable Entity)
+```json
+{
+  "detail": "Validation error",
+  "errors": [
+    {
+      "field": "email",
+      "message": "Invalid email format"
+    }
+  ]
+}
+```
+
+### POST /register
+Register a new user with email, password, and name.
+
+#### Request
+```json
+{
+  "email": "newuser@example.com",
+  "password": "securePassword123!",
+  "name": "Jane Doe"
+}
+```
+
+#### Response (Success - 201 Created)
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "bearer",
+  "user": {
+    "id": "user_67890",
+    "email": "newuser@example.com",
+    "name": "Jane Doe"
+  }
+}
+```
+
+#### Response (Error - 409 Conflict)
+```json
+{
+  "detail": "User with this email already exists"
+}
+```
+
+#### Response (Error - 422 Unprocessable Entity)
+```json
+{
+  "detail": "Validation error",
+  "errors": [
+    {
+      "field": "password",
+      "message": "Password must be at least 8 characters with mixed case, number, and symbol"
+    }
+  ]
+}
+```
+
+### POST /logout
+Logout the current user (optional endpoint).
+
+#### Request Headers
+```
+Authorization: Bearer {access_token}
+```
+
+#### Response (Success - 200 OK)
+```json
+{
+  "message": "Successfully logged out"
+}
+```
+
+## Authentication Header
+All authenticated requests must include the Authorization header:
+```
+Authorization: Bearer {access_token}
+```
+
+## Error Format
+All error responses follow this format:
+```json
+{
+  "detail": "Error message",
+  "errors": [
+    {
+      "field": "field_name",
+      "message": "Specific error message for the field"
+    }
+  ]
+}
+```
+
+## Validation Rules
+- Email: Must be a valid email format
+- Password: Minimum 8 characters with at least one uppercase, one lowercase, one number, and one symbol
+- Name: Optional, maximum 100 characters
